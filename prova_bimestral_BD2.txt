@@ -1,0 +1,54 @@
+CREATE TABLE films(
+id UUID PRIMARY KEY UNIQUE NOT NULL,
+path VARCHAR(90) NOT NULL,
+title VARCHAR(45) NOT NULL,
+duration TIMESTAMP NOT NULL,
+date_launch TIMESTAMP NOT NULL,
+main_actors VARCHAR(45) NOT NULL,
+director VARCHAR(45) NOT NULL,
+poster BYTEA NOT NULL,
+gender VARCHAR(45) NOT NULL,
+
+
+films REFERENCES artists_and_directors,
+);
+
+CREATE TABLE artists_and_directors(
+id UUID PRIMARY KEY UNIQUE NOT NULL,
+name VARCHAR(45) NOT NULL,
+birth_date TIMESTAMP NOT NULL,
+death_date TIMESTAMP NOT NULL,
+type VARCHAR(45) NOT NULL,
+biography TEXT NOT NULL,
+famous_movie VARCHAR(37) NOT NULL,
+function VARCHAR(45) NOT NULL,
+
+
+artists_and_directors REFERENCES films(id),
+);
+
+
+CREATE TABLE users(
+id UUID PRIMARY KEY UNIQUE NOT NULL,
+email VARCHAR(45) NOT NULL UNIQUE,
+password VARCHAR(45) NOT NULL,
+full_name VARCHAR(60) NOT NULL, 
+age VARCHAR(3) NOT NULL,
+favorite_gender VARCHAR(50) NOT NULL,
+profile_date TIMESTAMP NOT NULL,
+last_acess TIMESTAMP NOT NULL,
+phone VARCHAR(20) NOT NULL,
+streaming_plan VARCHAR(45) NOT NULL,
+
+
+users REFERENCES info_plans(id)
+);
+
+CREATE TABLE info_plans(
+id UUID PRIMARY KEY UNIQUE NOT NULL,
+plan_name VARCHAR(45) NOT NULL,
+price MONEY NOT NULL,
+recurrence VARCHAR(45) NOT NULL,
+description_plan TEXT NOT NULL,
+max_devices INTEGER NOT NULL,
+);
